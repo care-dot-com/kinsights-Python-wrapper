@@ -30,6 +30,13 @@ class Lymbix:
             'Version': '2.2'}
         return headers
 
+    def _prep_data(self, data, options):
+        if options:
+            data.update(options)
+        for key, value in data.iteritems():
+            data[key] = json.dumps(value)
+        return urllib.urlencode(data)
+
     ''' api methods '''
 
     def tonalize_multiple(self, articles, options=None):
@@ -48,9 +55,7 @@ class Lymbix:
 
         url = self.API_BASE + self.TONALIZE_MULTIPLE
         data = {'articles': articles}
-        if options is not None: data.update(options)
-        for key, value in data.iteritems(): data[key] = json.dumps(value)
-        data = urllib.urlencode(data)
+        data = self._prep_data(data, options)
 
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
@@ -72,10 +77,9 @@ class Lymbix:
             raise Exception('You must include an article to tonalize')
 
         url = self.API_BASE + self.TONALIZE_DETAILED
+
         data = {'article': article}
-        if options is not None: data.update(options)
-        for key, value in data.iteritems(): data[key] = json.dumps(value)
-        data = urllib.urlencode(data)
+        data = self._prep_data(data, options)
 
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
@@ -98,9 +102,7 @@ class Lymbix:
 
         url = self.API_BASE + self.TONALIZE
         data = {'article': article}
-        if options is not None: data.update(options)
-        for key, value in data.iteritems(): data[key] = json.dumps(value)
-        data = urllib.urlencode(data)
+        data = self._prep_data(data, options)
 
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
@@ -125,15 +127,15 @@ class Lymbix:
             raise Exception('You must include a phrase to flag')
 
         url = self.API_BASE + self.FLAG_RESPONSE
+
         data = {'phrase': phrase}
-
-        if (api_method is not None): data['apiMethod'] = api_method
-        if (api_version is not None): data['apiVersion'] = api_version
-        if (callback_url is not None): data['callbackUrl'] = callback_url
-        if (options is not None): data.update(options)
-
-        for key, value in data.iteritems(): data[key] = json.dumps(value)
-        data = urllib.urlencode(data)
+        if (api_method is not None):
+            data['apiMethod'] = api_method
+        if (api_version is not None):
+            data['apiVersion'] = api_version
+        if (callback_url is not None):
+            data['callbackUrl'] = callback_url
+        data = self._prep_data(data, options)
 
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
