@@ -16,7 +16,7 @@ class Lymbix:
         Args:
                 -authentication_key: your Lymbix authentication key
         '''
-        if authentication_key is None or len(authentication_key) == 0:
+        if not authentication_key:
             raise Exception('You must include your authentication key')
 
         self.authentication_key = authentication_key
@@ -58,7 +58,7 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if articles is None or len(articles) == 0:
+        if not articles:
             raise Exception('You must include articles to tonalize')
 
         url = self.API_BASE + self.TONALIZE_MULTIPLE
@@ -78,7 +78,7 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if article is None or len(article) == 0:
+        if not article:
             raise Exception('You must include an article to tonalize')
 
         url = self.API_BASE + self.TONALIZE_DETAILED
@@ -99,7 +99,7 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if article is None or len(article) == 0:
+        if not article:
             raise Exception('You must include an article to tonalize')
 
         url = self.API_BASE + self.TONALIZE
@@ -122,7 +122,7 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if phrase is None or len(phrase) == 0:
+        if not phrase:
             raise Exception('You must include a phrase to flag')
 
         url = self.API_BASE + self.FLAG_RESPONSE
