@@ -37,11 +37,11 @@ class Lymbix:
             data[key] = json.dumps(value)
         return urllib.urlencode(data)
 
-    def _call(self, url, data, json=False):
+    def _call(self, url, data, returns_json=False):
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
         response = urllib2.urlopen(request)
-        if json:
+        if returns_json:
             return json.loads(response.read())
         return response.read()
 
@@ -65,7 +65,7 @@ class Lymbix:
         data = {'articles': articles}
         data = self._prep_data(data, options)
 
-        return self._call(url, data, json=True)
+        return self._call(url, data, returns_json=True)
 
     def tonalize_detailed(self, article, options=None):
         '''
@@ -86,7 +86,7 @@ class Lymbix:
         data = {'article': article}
         data = self._prep_data(data, options)
 
-        return self._call(url, data, json=True)
+        return self._call(url, data, returns_json=True)
 
     def tonalize(self, article, options=None):
         '''
@@ -106,7 +106,7 @@ class Lymbix:
         data = {'article': article}
         data = self._prep_data(data, options)
 
-        return self._call(url, data, json=True)
+        return self._call(url, data, returns_json=True)
 
     def flag_response(self, phrase, api_method=None, api_version='2.2', callback_url=None, options=None):
         '''
