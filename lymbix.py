@@ -16,7 +16,7 @@ class Lymbix:
         Args:
                 -authentication_key: your Lymbix authentication key
         '''
-        if authentication_key == None or len(authentication_key) == 0:
+        if authentication_key is None or len(authentication_key) == 0:
             raise Exception('You must include your authentication key')
 
         self.authentication_key = authentication_key
@@ -43,12 +43,12 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if articles == None or len(articles) == 0:
+        if articles is None or len(articles) == 0:
             raise Exception('You must include articles to tonalize')
 
         url = self.API_BASE + self.TONALIZE_MULTIPLE
         data = {'articles': articles}
-        if options != None: data.update(options)
+        if options is not None: data.update(options)
         for key, value in data.iteritems(): data[key] = json.dumps(value)
         data = urllib.urlencode(data)
 
@@ -68,12 +68,12 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if article == None or len(article) == 0:
+        if article is None or len(article) == 0:
             raise Exception('You must include an article to tonalize')
 
         url = self.API_BASE + self.TONALIZE_DETAILED
         data = {'article': article}
-        if options != None: data.update(options)
+        if options is not None: data.update(options)
         for key, value in data.iteritems(): data[key] = json.dumps(value)
         data = urllib.urlencode(data)
 
@@ -93,12 +93,12 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if article == None or len(article) == 0:
+        if article is None or len(article) == 0:
             raise Exception('You must include an article to tonalize')
 
         url = self.API_BASE + self.TONALIZE
         data = {'article': article}
-        if options != None: data.update(options)
+        if options is not None: data.update(options)
         for key, value in data.iteritems(): data[key] = json.dumps(value)
         data = urllib.urlencode(data)
 
@@ -121,16 +121,16 @@ class Lymbix:
         Returns:
                 -see the api documentation for the format of this object
         '''
-        if phrase == None or len(phrase) == 0:
+        if phrase is None or len(phrase) == 0:
             raise Exception('You must include a phrase to flag')
 
         url = self.API_BASE + self.FLAG_RESPONSE
         data = {'phrase': phrase}
 
-        if (api_method != None): data['apiMethod'] = api_method
-        if (api_version != None): data['apiVersion'] = api_version
-        if (callback_url != None): data['callbackUrl'] = callback_url
-        if (options != None): data.update(options)
+        if (api_method is not None): data['apiMethod'] = api_method
+        if (api_version is not None): data['apiVersion'] = api_version
+        if (callback_url is not None): data['callbackUrl'] = callback_url
+        if (options is not None): data.update(options)
 
         for key, value in data.iteritems(): data[key] = json.dumps(value)
         data = urllib.urlencode(data)
