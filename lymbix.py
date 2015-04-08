@@ -1,6 +1,7 @@
 import urllib
 import urllib2
 import json
+import ssl
 
 
 class Lymbix:
@@ -11,7 +12,7 @@ class Lymbix:
     TONALIZE = 'tonalize'
     FLAG_RESPONSE = 'flag_response'
 
-    def __init__(self, authentication_key):
+    def __init__(self, authentication_key, verify_ssl=True):
         '''
         Args:
                 -authentication_key: your Lymbix authentication key
@@ -20,6 +21,7 @@ class Lymbix:
             raise Exception('You must include your authentication key')
 
         self.authentication_key = authentication_key
+        self.verify_ssl = verify_ssl
 
     ''' utility functions '''
 
@@ -40,7 +42,11 @@ class Lymbix:
     def _call(self, url, data, returns_json=False):
         headers = self._get_headers()
         request = urllib2.Request(url, data, headers)
-        response = urllib2.urlopen(request)
+        if not self.verify_ssl and hasattr(ssl, '_create_unverified_context'):
+            context = ssl._create_unverified_context()
+            response = urllib2.urlopen(request, context=context)
+        else:
+            response = urllib2.urlopen(request)
         if returns_json:
             return json.loads(response.read())
         return response.read()
