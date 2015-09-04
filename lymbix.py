@@ -6,7 +6,7 @@ import ssl
 
 class Lymbix:
 
-    API_BASE = 'https://api.lymbix.com/'
+    API_BASE = 'http://api.lymbix.com/'
     TONALIZE_MULTIPLE = 'tonalize_multiple'
     TONALIZE_DETAILED = 'tonalize_detailed'
     TONALIZE = 'tonalize'
