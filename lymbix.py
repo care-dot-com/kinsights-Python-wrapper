@@ -52,8 +52,8 @@ class Lymbix:
         tonalize multiple articles
 
         Args:
-                -articles: articles to tonalize
-                -options: additional parameters (reference_ids and return_fields)
+            -articles: articles to tonalize
+            -options: additional parameters (reference_ids and return_fields)
 
         Returns:
                 -see the api documentation for the format of this object
@@ -72,8 +72,8 @@ class Lymbix:
         tonalize an article
 
         Args:
-                -article: article to tonalize
-                -options: additional parameters (reference_id and return_fields)
+            -article: article to tonalize
+            -options: additional parameters (reference_id and return_fields)
 
         Returns:
                 -see the api documentation for the format of this object
@@ -93,8 +93,8 @@ class Lymbix:
         tonalize an article
 
         Args:
-                -article: article to tonalize
-                -options: additional parameters (reference_id and return_fields)
+            -article: article to tonalize
+            -options: additional parameters (reference_id and return_fields)
 
         Returns:
                 -see the api documentation for the format of this object
@@ -108,7 +108,14 @@ class Lymbix:
 
         return self._call(url, data, returns_json=True)
 
-    def flag_response(self, phrase, api_method=None, api_version='2.2', callback_url=None, options=None):
+    def flag_response(
+            self,
+            phrase,
+            api_method=None,
+            api_version='2.2',
+            callback_url=None,
+            options=None,
+    ):
         '''
         flag a response as inaccurate
 
