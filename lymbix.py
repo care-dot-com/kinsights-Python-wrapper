@@ -1,6 +1,6 @@
-import urllib
-import urllib2
 import json
+from urllib.parse import urlencode
+from urllib.request import urlopen, Request
 
 
 class Lymbix:
@@ -35,12 +35,12 @@ class Lymbix:
             data.update(options)
         for key, value in data.iteritems():
             data[key] = json.dumps(value)
-        return urllib.urlencode(data)
+        return urlencode(data)
 
     def _call(self, url, data, returns_json=False):
         headers = self._get_headers()
-        request = urllib2.Request(url, data, headers)
-        response = urllib2.urlopen(request)
+        request = Request(url, data, headers)
+        response = urlopen(request)
         if returns_json:
             return json.loads(response.read())
         return response.read()
